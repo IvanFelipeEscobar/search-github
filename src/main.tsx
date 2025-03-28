@@ -5,4 +5,7 @@ import { ApolloProvider } from '@apollo/client'
 import client from './apolloClient.ts'
 
 createRoot(document.getElementById('root')!).render(
-<ApolloProvider client={client}><App /></ApolloProvider>)
+  <ApolloProvider client={client}>
+    <App />
+  </ApolloProvider>
+)
