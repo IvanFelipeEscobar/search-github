@@ -28,3 +28,27 @@ export const countStarredRepos = (
 
   return starred
 }
+
+export const countLanguages = (
+  repos: Repository[]
+): { language: string; count: number }[] => {
+  if (repos.length === 0) return []
+
+  const languageCount: { [key: string]: number } = {}
+
+  repos.forEach((repo) => {
+    if (repo.languages.edges.length === 0) return
+
+    repo.languages.edges.forEach(
+      (lang) =>
+        (languageCount[lang.node.name] =
+          (languageCount[lang.node.name] || 0) + 1)
+    )
+  })
+
+  if (Object.keys(languageCount).length === 0) return []
+  return Object.entries(languageCount)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0,5)
+    .map(([language, count]) => ({ language, count }))
+}
